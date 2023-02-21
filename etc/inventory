@@ -1,0 +1,4 @@
+[kali]
+YOUR_DEDIAN_DISTRO_IP ansible_ssh_user=vborodyn ansible_ssh_private_key_file=/home/vborodyn/borodynKey.pem
+[redhat]
+YOUR_REDHAT_DISTRO_IP ansible_ssh_user=ec2-user ansible_ssh_private_key_file=/home/vborodyn/borodynKey.pem

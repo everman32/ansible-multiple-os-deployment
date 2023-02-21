@@ -1,0 +1,40 @@
+---
+- name: Add Docker GPG key
+  ansible.builtin.rpm_key:
+    key: https://download.docker.com/linux/centos/gpg
+    state: present
+
+- name: Add repository into sources list
+  ansible.builtin.yum_repository:
+    name: Docker repository
+    baseurl: https://download.docker.com/linux/centos/7/x86_64/stable/
+    description: Docker yum repo setup
+    gpgcheck: true
+
+- name: Install Python3
+  ansible.builtin.yum:
+    name: python3-pip
+    state: latest
+    update_cache: true
+
+- name: Install Docker module for Python
+  ansible.builtin.pip:
+    name: docker
+
+- name: Install container-selinux
+  ansible.builtin.yum:
+    name: http://vault.centos.org/centos/7.3.1611/extras/x86_64/Packages/container-selinux-2.9-4.el7.noarch.rpm
+    state: present
+    update_cache: true
+
+- name: Install Docker
+  ansible.builtin.yum:
+    name: docker
+    state: latest
+    update_cache: true
+
+- name: Start Docker
+  ansible.builtin.service:
+    name: docker
+    enabled: true
+    state: started
